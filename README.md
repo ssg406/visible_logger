@@ -1,4 +1,7 @@
 # Visible Logger
+![](./screenshots/default_logs.png)
+![](./screenshots/custom_category_logs.png)
+![](./screenshots/timestamp_logs.png)
 Visble logger provides a simple way to create easily identifiable log statements using the console formatting capabilities of [Chalk](https://www.npmjs.com/package/chalk). There are preset log styles for info, warning, error, success, and regular log statements. 
 ## Installation
 
