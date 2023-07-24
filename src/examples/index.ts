@@ -15,7 +15,7 @@ logger.log('Default plain log with category', 'Custom');
 logger.warn('Default warning log with category', 'Custom');
 logger.success('Default success log with category', 'Custom');
 
-const logger2 = loggerFactory({ includeCategory: false, includeTimestamps: true, includeUtcOffset: true });
+const logger2 = loggerFactory({ includeCategory: false, includeTimestamps: true, includeUtcOffset: true, hideLogsDuringTest: true });
 
 console.log('\n\n[ WITH TIMESTAMP & UTC OFFSET ]');
 logger2.info('Custom info log')

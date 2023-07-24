@@ -44,6 +44,14 @@ Error logs can be written with or without an error object. If an error object is
 logger.error('An error occured', errorObject);
 ```
 
+Since version 1.1.0, ff you do not wish to log to the console during testing, create a logger and specify the the option during configuration. Logs will be hidden if when NODE_ENV is set to 'test', with any variation in case.
+```
+const logger = loggerFactory({
+    hideLogsDuringTest: true,
+}); 
+```
+
+
 ## Related
 
 - [chalk](http://github.com/chalk/chalk) - Supports writing colored strings to supported consoles

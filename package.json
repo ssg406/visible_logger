@@ -1,6 +1,6 @@
 {
   "name": "visible_logger",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Simple logger that provides pre-configured usage of Chalk and Dayjs. Prints easily identifiable logs to the console with or without timestamps and log categories.",
   "main": "dist/index.js",
   "scripts": {

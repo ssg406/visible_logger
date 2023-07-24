@@ -10,6 +10,8 @@ export interface VisibleLoggerConfig {
     includeUtcOffset?: boolean;
     /** Shows the category with each log, such as 'WARN', 'SUCCESS', or 'ERROR', defaults to true */
     includeCategory?: boolean;
+    /** Hides logs when NODE_ENV is set to 'test'  @since 1.1.0*/
+    hideLogsDuringTest?: boolean;
 }
 
 export class VisibleLogger {
@@ -17,11 +19,13 @@ export class VisibleLogger {
     showTimestamp: boolean;
     timestampFormatString: string;
     showCategory: boolean;
+    hideLogsDuringTest: boolean;
 
     constructor(config?: VisibleLoggerConfig) {
         this.showTimestamp = config?.includeTimestamps || false;
         this.timestampFormatString = `YYYY-MM-DDTHH:mm:ss${config?.includeUtcOffset && 'Z[Z]'}`;
         this.showCategory = config?.includeCategory || true;
+        this.hideLogsDuringTest = config?.hideLogsDuringTest || false;
     }
 
     /**
@@ -31,7 +35,7 @@ export class VisibleLogger {
      */
     error(logText: string, error?: Error) {
         const errorText = error ? `${logText}\n${error?.stack}` : logText;
-        log(this._getTimestamp(), this._redTitle(this._getLeading('error')), this._redText(errorText));
+        this._writeLog(this._getTimestamp(), this._redTitle(this._getLeading('error')), this._redText(errorText));
     }
 
     /**
@@ -40,7 +44,7 @@ export class VisibleLogger {
      * @param category Optional category 
      */
     info(logText: string, category?: string) {
-        log(this._getTimestamp(), this._blueTitle(this._getLeading(category || 'Info')), this._blueText(logText));
+        this._writeLog(this._getTimestamp(), this._blueTitle(this._getLeading(category || 'Info')), this._blueText(logText));
     }
 
     /**
@@ -49,7 +53,7 @@ export class VisibleLogger {
      * @param category Optional category
      */
     success(logText: string, category?: string) {
-        log(this._getTimestamp(), this._greenTitle(this._getLeading(category || 'Success')), this._greenText(logText));
+        this._writeLog(this._getTimestamp(), this._greenTitle(this._getLeading(category || 'Success')), this._greenText(logText));
     }
 
     /**
@@ -58,7 +62,7 @@ export class VisibleLogger {
      * @param category Optional category
      */
     warn(logText: string, category?: string) {
-        log(this._getTimestamp(), this._yellowTitle(this._getLeading(category || 'Warn')), this._yellowText(logText));
+        this._writeLog(this._getTimestamp(), this._yellowTitle(this._getLeading(category || 'Warn')), this._yellowText(logText));
     }
 
     /**
@@ -67,7 +71,7 @@ export class VisibleLogger {
      * @param category Optional category
      */
     log(logText: string, category?: string) {
-        log(this._getTimestamp(), this._blackTitle(this._getLeading(category)), logText);
+        this._writeLog(this._getTimestamp(), this._blackTitle(this._getLeading(category)), logText);
     }
 
     private _getLeading(category?: string): string {
@@ -112,6 +116,13 @@ export class VisibleLogger {
 
     private _getTimestamp(): string {
         return chalk.gray(this.showTimestamp ? dayjs(Date.now()).format(this.timestampFormatString) : '');
+    }
+
+    private _writeLog(...args: string[]): void {
+
+        if (process.env.NODE_ENV?.toLowerCase() !== 'test' || !this.hideLogsDuringTest) {
+            log(args.join(' '));
+        }
     }
 }
 
