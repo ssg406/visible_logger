@@ -1,8 +1,9 @@
 {
   "name": "visible_logger",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Simple logger that provides pre-configured usage of Chalk and Dayjs. Prints easily identifiable logs to the console with or without timestamps and log categories.",
   "main": "dist/index.js",
+  "repository": "ssg406/visible_logger",
   "scripts": {
     "prepublish": "tsc"
   },
@@ -12,7 +13,13 @@
     "logger",
     "formatted",
     "pretty",
-    "logging"
+    "logging",
+    "terminal",
+    "console",
+    "cli",
+    "style",
+    "text",
+    "command-line"
   ],
   "types": "dist/index.d.ts",
   "author": "Samuel Jones",
