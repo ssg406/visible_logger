@@ -10,10 +10,7 @@ Visble Logger can be installed using `npm install visible_logger` or `yarn add v
 ## Importing into Project
 
 To use the logger with default options use  
-`import logger from 'visible_logger'`  
-
-To use the logger with default options use  
-`import 'logger' from 'visible_logger'`  
+`import logger from 'visible_logger'`   
 
 If you would like to pass custom options to Visible Logger, use  
 `import { loggerFactory } from 'visible_logger`.
@@ -26,7 +23,7 @@ const logger = loggerFactory({
     includeTimestamps: false,
     includeUtcOffset: false,
     includeCategory: true,
-})
+});
 ```
 
 ## Usage
@@ -44,7 +41,7 @@ Error logs can be written with or without an error object. If an error object is
 logger.error('An error occured', errorObject);
 ```
 
-Since version 1.1.0, ff you do not wish to log to the console during testing, create a logger and specify the the option during configuration. Logs will be hidden if when NODE_ENV is set to 'test', with any variation in case.
+Since version 1.1.0, if you do not wish to log to the console during testing, create a logger and specify the option during configuration. Logs will be hidden when NODE_ENV is set to 'test', with any variation in case.
 ```
 const logger = loggerFactory({
     hideLogsDuringTest: true,
